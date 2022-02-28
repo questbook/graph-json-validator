@@ -8,20 +8,25 @@
   "keywords": [],
   "scripts": {
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build"
   },
   "author": "Adhiraj Singh",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.26.0",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "yargs": "^17.3.1"
   },
   "files": [
     "lib/*"
   ],
+  "bin": {
+    "graph-json-validator": "lib/cli.js"
+  },
   "devDependencies": {
-    "@graphprotocol/graph-ts": "^0.24.1",
     "@creatoros/eslint-config": "git+https://github.com/creatoros/eslint-config",
+    "@graphprotocol/graph-ts": "^0.24.1",
     "@types/jest": "^26.0.24",
     "@types/js-yaml": "^4.0.5",
     "@types/node": "^14.6.2",

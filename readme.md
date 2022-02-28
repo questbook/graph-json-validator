@@ -14,8 +14,10 @@ yarn add git+https://github.com/questbook/graph-json-validator
 ```
 
 Generate the AS code using the CLI
+
+**Note:** this example uses an OpenAPI spec's components as the JSON schemas to generate the validators for
 ```
-yarn graph-json-validator --schema-path  --out-dir ./src/json-schema
+yarn graph-json-validator --file https://raw.githubusercontent.com/questbook/service-validator/main/openapi.yaml --schemaPath components.schemas --outDirectory ./src/json-schema
 ```
 
 Use in a subgraph like
@@ -44,3 +46,12 @@ export function handleWorkspaceCreated(event: WorkspaceCreated): void {
   entity.save()
 }
 ```
+
+## Caveats
+
+1. Does not handle "pattern" in string types
+2. Cannot handle "allOf", "oneOf" or "anyOf"
+3. Can only handle the following string formats:
+  - "integer" (BigInt)
+  - "number" (BigDecimal)
+  - "hex" (treats string as hex encoded "Bytes")
