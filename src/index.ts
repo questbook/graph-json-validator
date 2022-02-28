@@ -6,9 +6,11 @@ import { fetchFile } from './utils/fetch-file'
 import { generateValidators } from './utils/generate-validators'
 import { Options } from './types'
 
-const AS_UTILS_FOLDER = './as-utils'
+// folder containing utilities required for validation
+const AS_UTILS_FOLDER = '../as-utils'
 
 export const generate = async(schemaFile: string, opts: Options = { }) => {
+	const utilsFolder = path.join(__dirname, AS_UTILS_FOLDER)
 	const txt = await fetchFile(schemaFile)
 	// get the format of the document
 	// if not specified, use the file extension to determine
@@ -22,7 +24,7 @@ export const generate = async(schemaFile: string, opts: Options = { }) => {
 	// recursively mk the out directory
 	await mkdir(outDir, { recursive: true })
 	// copy utils required for schema validation
-	await copyDirectoryContents(AS_UTILS_FOLDER, outDir)
+	await copyDirectoryContents(utilsFolder, outDir)
 	// write out our main generator file
 	await writeFile(path.join(outDir, outFile), generatedFile)
 }
