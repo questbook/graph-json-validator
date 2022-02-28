@@ -47,6 +47,8 @@ export function handleWorkspaceCreated(event: WorkspaceCreated): void {
 }
 ```
 
+The QuestBook subgraph uses this validator, which you can check out [here](https://github.com/questbook/subgraph)
+
 ## Caveats
 
 1. Does not handle "pattern" in string types
