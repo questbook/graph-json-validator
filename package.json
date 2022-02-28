@@ -1,0 +1,34 @@
+{
+  "name": "@questbook/graph-json-validator",
+  "version": "0.0.1",
+  "description": "AssemblyScript JSON Validator for the Graph Protocol",
+  "homepage": "https://github.com/questbook/graph-json-validator",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "keywords": [],
+  "scripts": {
+    "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
+    "build": "tsc"
+  },
+  "author": "Adhiraj Singh",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.26.0",
+    "js-yaml": "^4.1.0"
+  },
+  "files": [
+    "lib/*"
+  ],
+  "devDependencies": {
+    "@graphprotocol/graph-ts": "^0.24.1",
+    "@creatoros/eslint-config": "git+https://github.com/creatoros/eslint-config",
+    "@types/jest": "^26.0.24",
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^14.6.2",
+    "eslint": "^7.0.0",
+    "jest": "^27.0.6",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.0.0"
+  }
+}
