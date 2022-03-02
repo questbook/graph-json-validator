@@ -17,8 +17,7 @@ export function toSet<T>(arr: T[]): Set<T> {
 
 const NUMBER_SET = toSet(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'])
 
-function validateJSONValueNumber(json: JSONValue, isDecimal: boolean): Result<string> {
-	const decimalString = changetype<string>(json.data as u32)
+function validateStringNumber(decimalString: string, isDecimal: boolean): Result<string> {
 	// ensure it is a valid number
 	for(let i = 0;i < decimalString.length;i++) {
 		const char = decimalString.charAt(i)
@@ -28,8 +27,39 @@ function validateJSONValueNumber(json: JSONValue, isDecimal: boolean): Result<st
 			}
 		}
 	}
-	
+
 	return { value: decimalString, error: null }
+}
+
+function validateJSONValueNumber(json: JSONValue, isDecimal: boolean): Result<string> {
+	const decimalString = changetype<string>(json.data as u32)
+	return validateStringNumber(decimalString, isDecimal)
+}
+
+export function validateStringResultNumber(r: Result<string>): Result<BigDecimal> {
+	if(r.error) {
+		return { value: null, error: r.error }
+	}
+
+	r = validateStringNumber(r.value!, true)
+	if(r.error) {
+		return { value: null, error: r.error }
+	}
+
+	return { value: BigDecimal.fromString(r.value!), error: null }
+}
+
+export function validateStringResultInteger(r: Result<string>): Result<BigInt> {
+	if(r.error) {
+		return { value: null, error: r.error }
+	}
+
+	r = validateStringNumber(r.value!, false)
+	if(r.error) {
+		return { value: null, error: r.error }
+	}
+
+	return { value: BigInt.fromString(r.value!), error: null }
 }
 
 export function validateNumber(json: JSONValue, minimum: BigDecimal | null, maximum: BigDecimal | null): Result<BigDecimal> {

@@ -14,22 +14,7 @@ export const getPrimitiveFunctionCall = (jsonVariable: string, schemaName: strin
 	// we can require constant declaration of the enum set
 	const constantDeclarations: CompileResult['constantDeclarations'] = []
 
-	let type = schema.type
-	if(type === 'string') {
-		// if the string is meant to represent an integer or decimal
-		// we use this
-		switch (schema.format) {
-		case 'integer':
-			type = 'integer'
-			break
-		case 'number':
-			type = 'number'
-			break
-		default:
-			break
-		}
-	}
-	
+	const type = schema.type
 	let functionCall: string
 	switch (type) {
 	case 'boolean':
@@ -46,9 +31,20 @@ export const getPrimitiveFunctionCall = (jsonVariable: string, schemaName: strin
 		}
 
 		functionCall = `validateString(${jsonVariable}, ${schema.minimum || -1}, ${schema.maximum || -1}, ${enumValueSetName})`
-		// if it's a hex -- then we treat it as "Bytes"
-		if(schema.format === 'hex') {
+		// if the string is meant to represent an integer or decimal
+		// we use this
+		switch (schema.format) {
+		case 'integer':
+			functionCall = `validateStringResultInteger(${functionCall})`
+			break
+		case 'number':
+			functionCall = `validateStringResultNumber(${functionCall})`
+			break
+		case 'hex': // if it's a hex -- then we treat it as "Bytes"
 			functionCall = `validateBytesFromStringResult(${functionCall})`
+			break
+		default:
+			break
 		}
 
 		break
