@@ -15,7 +15,7 @@ export const getSchemaType = (schemaName: string, schema: AnyJSONSchema, getRefe
 		schemaType = schemaName
 		break
 	case 'boolean':
-		schemaType = 'boolean'
+		schemaType = 'Boolean'
 		break
 	case 'string':
 		schemaType = 'string'

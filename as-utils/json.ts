@@ -6,6 +6,11 @@ export class Result<T> {
 	error: string | null = null;
 }
 
+/** Boolean wrapper, to help make nullable booleans */
+export class Boolean {
+	isTrue: boolean = false
+}
+
 export function toSet<T>(arr: T[]): Set<T> {
 	const set = new Set<T>()
 	for(let i = 0;i < arr.length;i++) {
@@ -119,12 +124,12 @@ export function validateString(json: JSONValue, minimumLength: number, maximumLe
 	return { value, error: null }
 }
 
-export function validateBoolean(json: JSONValue): Result<boolean> {
+export function validateBoolean(json: JSONValue): Result<Boolean> {
 	if(json.kind !== JSONValueKind.BOOL) {
 		return { value: null, error: `Expected to be boolean, found "${json.kind}"` }
 	}
 
-	return { value: json.toBool(), error: null }
+	return { value: { isTrue: json.toBool() }, error: null }
 }
 
 export function validateArray<T>(json: JSONValue, minimumLength: number, maximumLength: number, mappingFunction: (item: JSONValue) => Result<T>): Result<T[]> {
