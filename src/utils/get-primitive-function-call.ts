@@ -30,7 +30,7 @@ export const getPrimitiveFunctionCall = (jsonVariable: string, schemaName: strin
 			})
 		}
 
-		functionCall = `validateString(${jsonVariable}, ${schema.minimum || -1}, ${schema.maximum || -1}, ${enumValueSetName})`
+		functionCall = `validateString(${jsonVariable}, ${schema.minLength || -1}, ${schema.maxLength || -1}, ${enumValueSetName})`
 		// if the string is meant to represent an integer or decimal
 		// we use this
 		switch (schema.format) {

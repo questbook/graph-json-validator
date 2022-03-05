@@ -127,7 +127,7 @@ value.additionalProperties = addPropertiesResult.value!
 
 		const validationFunctionName = `validate${itemSchemaName}`
 
-		operations.push(`return validateArray(json, ${schema.minimum || -1}, ${schema.maximum || -1}, ${validationFunctionName})`)
+		operations.push(`return validateArray(json, ${schema.minItems || -1}, ${schema.maxItems || -1}, ${validationFunctionName})`)
 		break
 	case 'boolean':
 	case 'string':
