@@ -106,7 +106,9 @@ value.additionalProperties = addPropertiesResult.value!
 	if(${propertyName}Result.error) {
 		return { value: null, error: ["Error in mapping '${propertyName}': ", ${propertyName}Result.error!].join('') }
 	}
-	value.${propertyName} = ${propertyName}Result.value!
+	if(${propertyName}Result.value) {
+		value.${propertyName} = ${propertyName}Result.value!
+	}
 }`
 				)
 			}
