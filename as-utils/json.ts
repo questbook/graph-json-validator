@@ -129,12 +129,8 @@ export function validateDateTimeFromStringResult(result: Result<string>): Result
 		return { value: null, error: result.error }
 	}
 
-	const date = Date.parse(result.value!)
-	if(!date.getTime()) {
-		return { value: null, error: `Invalid date ("${result.value!}") received` }
-	}
-
-	return { value: date, error: null }
+	const value = Date.parse(result.value!)
+	return { value, error: null }
 } 
 
 export function validateBoolean(json: JSONValue): Result<Boolean> {
