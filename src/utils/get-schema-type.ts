@@ -19,20 +19,22 @@ export const getSchemaType = (schemaName: string, schema: AnyJSONSchema, getRefe
 		break
 	case 'string':
 		schemaType = 'string'
-		if(schema.format) {
-			switch (schema.format) {
-			case 'integer':
-				schemaType = 'BigInt'
-				break
-			case 'number':
-				schemaType = 'BigDecimal'
-				break
-			case 'hex':
-				schemaType = 'Bytes'
-				break
-			default:
-				break
-			}
+		switch (schema.format) {
+		case 'integer':
+			schemaType = 'BigInt'
+			break
+		case 'number':
+			schemaType = 'BigDecimal'
+			break
+		case 'hex':
+			schemaType = 'Bytes'
+			break
+		case 'date-time':
+		case 'date':
+			schemaType = 'Date'
+			break
+		default:
+			break
 		}
 
 		break

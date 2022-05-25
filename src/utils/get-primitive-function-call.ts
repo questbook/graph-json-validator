@@ -43,6 +43,9 @@ export const getPrimitiveFunctionCall = (jsonVariable: string, schemaName: strin
 		case 'hex': // if it's a hex -- then we treat it as "Bytes"
 			functionCall = `validateBytesFromStringResult(${functionCall})`
 			break
+		case 'date-time':
+			functionCall = `validateDateTimeFromStringResult(${functionCall})`
+			break
 		default:
 			break
 		}

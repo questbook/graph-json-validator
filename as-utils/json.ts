@@ -124,6 +124,19 @@ export function validateString(json: JSONValue, minimumLength: number, maximumLe
 	return { value, error: null }
 }
 
+export function validateDateTimeFromStringResult(result: Result<string>): Result<Date> {
+	if(result.error) {
+		return { value: null, error: result.error }
+	}
+
+	const date = Date.parse(result.value!)
+	if(!date.getTime()) {
+		return { value: null, error: `Invalid date ("${result.value!}") received` }
+	}
+
+	return { value: date, error: null }
+} 
+
 export function validateBoolean(json: JSONValue): Result<Boolean> {
 	if(json.kind !== JSONValueKind.BOOL) {
 		return { value: null, error: `Expected to be boolean, found "${json.kind}"` }

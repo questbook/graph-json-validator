@@ -44,7 +44,7 @@ export const generateValidators = (schemaDoc: any, opts: Options = {}) => {
 // Auto generated file using graph-json-validator. Do not modify manually.
 
 import { TypedMap, BigInt, BigDecimal, Bytes, JSONValue } from '@graphprotocol/graph-ts'
-import { Boolean, Result, toSet, validateObject, validateNumber, validateInteger, validateArray, validateBoolean, validateString, validateTypedMap, validateBytesFromStringResult, validateStringResultInteger, validateStringResultNumber } from './json'
+import { Boolean, Result, toSet, validateObject, validateNumber, validateInteger, validateArray, validateBoolean, validateString, validateTypedMap, validateBytesFromStringResult, validateStringResultInteger, validateStringResultNumber, validateDateTimeFromStringResult } from './json'
 
 ${fullResult.constantDeclarations.map(dec => `const ${dec.name} = ${dec.declaration}`).join('\n')}
 

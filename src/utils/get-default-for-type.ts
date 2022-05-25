@@ -11,7 +11,7 @@ export const getDefaultForType = (type: string) => {
 		result = '[]' // default is empty array
 	} else if(type === 'string') { // is a string
 		result = "''" // default is empty string
-	} else if(type === 'BigInt' || type === 'BigDecimal' || type === 'Bytes') {
+	} else if(type === 'BigInt' || type === 'BigDecimal' || type === 'Bytes' || type === 'Date') {
 		result = `new ${type}(0)` // empty value
 	} else { // some generic class otherwise
 		result = `new ${type}()` // instantiate empty instance of the class
