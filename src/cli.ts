@@ -4,7 +4,7 @@ import { generate } from '.'
 
 const validArgs = process.argv.slice(2)
 
-const { file, outDirectory, outFile, schemaPath } = yargs(validArgs)
+const { file, outDirectory, outFile, schemaPath, ignoreSchema } = yargs(validArgs)
 	.option(
 		'file', 
 		{
@@ -33,8 +33,23 @@ const { file, outDirectory, outFile, schemaPath } = yargs(validArgs)
 			type: 'string'
 		}
 	)
+	.option(
+		'ignoreSchema',
+		{
+			describe: 'specify schemas to ignore',
+			type: 'array',
+			items: {
+				type: 'string'
+			}
+		}
+	)
 	.demandOption('file')
 	.help()
 	.argv
 
-generate(file, { outDirectory, outFile, schemaPath })
+generate(file, {
+	outDirectory,
+	outFile,
+	schemaPath,
+	ignoreSchemas: ignoreSchema?.map(s => s.toString())
+})

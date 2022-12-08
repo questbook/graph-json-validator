@@ -17,23 +17,15 @@ export const generateValidators = (schemaDoc: any, opts: Options = {}) => {
 		throw new Error('Expected schemas to parse to be an object')
 	}
 
-	/// fetch the schema from the document with the given ref path
-	const getReferencedSchema: FetchReferencedSchema = (ref: string) => {
-		const DOC_PREFIX = '#/' // strip out document prefix
-		ref = ref.startsWith(DOC_PREFIX) ? ref.slice(DOC_PREFIX.length) : ref
-
-		const result = getNestedObject(schemaDoc, ref, '/')
-		if(!result) {
-			throw new Error(`Invalid reference "${ref}"`)
-		}
-
-		return result
-	}
-
 	// all the classes, declarations, functions etc. required to build the validator for the document
 	const fullResult = newCompileResult()
 	// loop through every schema in the doc and generate a validator for it
 	for(const schemaName in schemasToParse) {
+		if(opts.ignoreSchemas?.includes(schemaName)) {
+			console.log(`Ignoring schema "${schemaName}"`)
+			continue
+		}
+
 		const result = compileSchema(schemaName, schemasToParse[schemaName], getReferencedSchema)
 		mergeResults(fullResult, result)
 	}
@@ -53,4 +45,17 @@ ${fullResult.classes.join('\n\n')}
 ${fullResult.functions.join('\n\n')}
 `
 	return generatedFile
+
+	/// fetch the schema from the document with the given ref path
+	function getReferencedSchema(ref: string): FetchReferencedSchema {
+		const DOC_PREFIX = '#/' // strip out document prefix
+		ref = ref.startsWith(DOC_PREFIX) ? ref.slice(DOC_PREFIX.length) : ref
+
+		const result = getNestedObject(schemaDoc, ref, '/')
+		if(!result) {
+			throw new Error(`Invalid reference "${ref}"`)
+		}
+
+		return result
+	}
 }

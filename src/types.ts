@@ -8,6 +8,8 @@ export type Options = Partial<{
 	outFile: string
 	/** whether we're parsing a JSON or YAML doc */
 	format: 'json' | 'yaml'
+	/** schemas to ignore generating types for */
+	ignoreSchemas: string[]
 }>
 
 export type CompileResult = {
